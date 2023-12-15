@@ -104,7 +104,13 @@ function checkMatch(kanji, i) {
   let on = kanji[1];
   let kun = kanji[2];
 
-  if (on.includes(estate.query) || kun.includes(estate.query)) {
+  // if (on.includes(estate.query) || kun.includes(estate.query)) {
+  //   if (!inMatches(theKanji)) {
+  //     estate.matches.push(estate.kanji[0][i]);
+  //   }
+  // }
+
+  if (on == estate.query) {
     if (!inMatches(theKanji)) {
       estate.matches.push(estate.kanji[0][i]);
     }
