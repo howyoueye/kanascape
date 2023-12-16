@@ -10,7 +10,7 @@ let estate = {
   query: '',
   prevQuery: '',
   alphabet: 1,
-  kanji: JSON.parse(localStorage.getItem('kanji')) || [],
+  kanji: [],
   view: 0,
   matches: [],
   filter: 'reading'
@@ -161,14 +161,24 @@ async function fetchKanji() {
   await fetch('https://kanji-data.herokuapp.com/n5kanji')
     .then(res => { return res.json() })
     .then(data => { 
-      estate.kanji.push(data.kanji['n5'])
+      console.log(data);
+      estate.kanji = data.kanji['n5']
       localStorage.setItem('kanji', JSON.stringify(estate.kanji))
+      localStorage.setItem('fetched', true);
     })
     .catch(err => { console.log(err) })
 }
 
 function init() {
-  //fetchKanji();
+  // if (localStorage.getItem('fetched')) {
+  //   estate.kanji = JSON.parse(localStorage.getItem('kanji'));
+  //   estate.kanji = estate.kanji[0];
+
+  // } else {
+  //   fetchKanji();
+  // }
+
+  fetchKanji();
 
   if (window.innerWidth > 800) {
     insertKana(kanaPrimary, 5, 'kana-row');
